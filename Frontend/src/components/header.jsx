@@ -1,9 +1,21 @@
-function Header(){
-    return(
-        <div>
-            <h1>1</h1>
-        </div>
-    )
+function Header() {
+  return (
+    <header className="header">
+
+      <div className="header-logo">
+        OSCAR
+      </div>
+
+      <div className="header-title">
+        ACADEMY AWARDS
+      </div>
+
+      <div className="header-year">
+        2026
+      </div>
+
+    </header>
+  );
 }
 
-export default Header
+export default Header;
