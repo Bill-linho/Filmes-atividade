@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+
+  background: #ffffff;
+
+  color: #222;
+}
+
+
+button {
+  font-family: inherit;
+}
+
+
+/* Container geral */
+
+.site {
+  width: 100%;
+  min-height: 100vh;
+}
+
+
+/* Layout Header + Aside + Main */
+
+.layout {
+  display: flex;
+
+  width: 100%;
+
+  min-height: calc(100vh - 75px);
+}
+
+
+/* Responsividade */
+
+@media (max-width: 700px) {
+
+  .header {
+    padding: 0 15px;
+  }
+
+
+  .header-title {
+    display: none;
+  }
+
+
+  .layout {
+    flex-direction: column;
+  }
+
+
+  .aside {
+    width: 100%;
+    min-width: 100%;
+
+    min-height: auto;
+
+    border-right: none;
+
+    border-bottom: 2px solid #222;
+  }
+
+
+  .categoria-itens {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+  }
+
+
+  .main-content {
+    padding: 25px 20px;
+  }
+
+}

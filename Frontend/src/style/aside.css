@@ -1,0 +1,107 @@
+.aside {
+  width: 220px;
+  min-width: 220px;
+
+  min-height: calc(100vh - 75px);
+
+  padding: 25px 18px;
+
+  background: #ffffff;
+
+  border-right: 2px solid #222;
+}
+
+
+/* Título */
+
+.aside-title {
+  font-size: 17px;
+  font-weight: bold;
+
+  letter-spacing: 1px;
+
+  margin-bottom: 15px;
+}
+
+
+/* Linha */
+
+.aside-line {
+  width: 100%;
+  height: 2px;
+
+  background: #222;
+
+  margin-bottom: 25px;
+}
+
+
+/* Grupos */
+
+.categoria-grupo {
+  margin-bottom: 30px;
+}
+
+.categoria-grupo h3 {
+  font-size: 14px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+
+  margin-bottom: 8px;
+}
+
+
+/* Lista */
+
+.categoria-itens {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Botões */
+
+.categoria-btn {
+  width: 100%;
+
+  padding: 11px 5px;
+
+  text-align: left;
+
+  background: transparent;
+
+  border: none;
+  border-bottom: 1px solid #222;
+
+  cursor: pointer;
+
+  color: #222;
+
+  font-size: 14px;
+
+  transition: 0.2s;
+}
+
+
+/* Hover */
+
+.categoria-btn:hover {
+  padding-left: 10px;
+
+  background: #f2f2f2;
+}
+
+
+/* Categoria selecionada */
+
+.categoria-btn.selecionada {
+  background: #222;
+
+  color: white;
+
+  font-weight: bold;
+
+  padding-left: 10px;
+}
