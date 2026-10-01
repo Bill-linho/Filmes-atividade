@@ -1,3 +1,5 @@
+import "../style/Aside.css";
+
 function Aside({ categoriaSelecionada, selecionarCategoria }) {
 
   const categorias = {
@@ -30,14 +32,11 @@ function Aside({ categoriaSelecionada, selecionarCategoria }) {
 
       <div className="aside-line"></div>
 
-
       {Object.entries(categorias).map(([grupo, itens]) => (
 
         <div className="categoria-grupo" key={grupo}>
 
-          <h3>
-            {grupo}
-          </h3>
+          <h3>{grupo}</h3>
 
           <div className="categoria-itens">
 

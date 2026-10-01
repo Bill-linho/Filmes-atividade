@@ -1,3 +1,5 @@
+import "../style/MainContent.css";
+
 function MainContent({ categoria }) {
 
   const dados = {
