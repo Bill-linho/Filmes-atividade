@@ -1,3 +1,20 @@
+// useEffect(() => {
+//   async function fetchCategoryDetails() {
+//     try {
+//       // Exemplo de chamada enviando o ID selecionado para o backend
+//       const response = await fetch(`https://6ac3f1ceae53bf25b80f26cf.mockapi.io/years?category=${selectedCategory}`);
+//       const data = await response.json();
+//       // Atualiza o estado dos filmes/indicados na tela...
+//     } catch (err) {
+//       console.error("Erro ao buscar dados da categoria:", err);
+//     }
+//   }
+
+//   if (selectedCategory) {
+//     fetchCategoryDetails();
+//   }
+// }, [selectedCategory]); // <--- Dispara sempre que o usuário muda a categoria no Aside
+
 import "../style/mainContent.css";
 import { dados } from "../temp/dados.js";
 
@@ -97,3 +114,4 @@ function MainContent({ categoria }) {
 }
 
 export default MainContent;
+
