@@ -17,11 +17,6 @@ const SearchItem = sequelize.define('SearchItem', {
         allowNull: false,
         field: 'year'
     },
-    class: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        field: 'class'
-    },
     canonicalCategory: {
         type: DataTypes.STRING,
         allowNull: false,
