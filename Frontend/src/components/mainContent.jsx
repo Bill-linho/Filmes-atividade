@@ -1,90 +1,83 @@
 import "../style/mainContent.css";
-import { dados } from "../temp/dados.js";
+import Cardfilm from "../components/card.jsx";
 
-function MainContent({ categoria }) {
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-  const categoriaAtual = dados[categoria];
+function MainContent() {
+
+  const [year, setYear] = useState(1977)
+  const [category, setCategory] = useState("best-picture")
+
+  const [nominee, setNominee] = useState([]);
+
+  useEffect(() => {
+
+    const getFilms = async () => {
+
+      try {
+
+        const response = await axios.get(
+          `https://6abe989ac4d5ac5483029d7b.mockapi.io/years/${year}`
+        );
+
+        setNominee(response.data.nominees)
+
+      } catch (erro) {
+        console.error("Erro ao buscar dados:", erro);
+
+        setNominee([])
+      }
+
+    };
+
+    getFilms();
+
+  }, [year, category]);
 
 
-  if (!categoriaAtual) {
-    return (
-      <main className="main-content">
+  const winner = nominee.find(
+    (nominee) => nominee.winner === true
+  );
 
-        <div className="inicio">
+  const otherNominees = nominee.filter(
+    (nominee) => nominee.winner === false
+  );
 
-          <h1>Academy Awards</h1>
-
-          <p>
-            Selecione uma categoria ao lado para visualizar
-            o vencedor e os indicados.
-          </p>
-
-        </div>
-
-      </main>
-    );
-  }
+  const nomineesForTest = [
+    ...otherNominees,
+    ...otherNominees,
+    ...otherNominees,
+    ...otherNominees
+];
 
 
   return (
-    <main className="main-content">
+    <div className="main-content">
 
-      <div className="categoria-header">
+      <section className="winner-section">
 
-        <span>CATEGORIA</span>
+        <h1>Vencedor</h1>
 
-        <h1>
-          {categoria}
-        </h1>
-
-      </div>
-
-
-      {/* VENCEDOR */}
-
-      <section className="vencedor">
-
-        <h2>
-          🏆 VENCEDOR
-        </h2>
-
-        <div className="vencedor-nome">
-          {categoriaAtual.vencedor}
-        </div>
+        {winner && (
+          <Cardfilm nominee={winner} />
+        )}
 
       </section>
 
 
-      {/* INDICADOS */}
+      <section>
 
-      <section className="indicados">
+        <h1>Indicados</h1>
 
-        <h2>
-          INDICADOS
-        </h2>
+        <div className="nominees">
 
-        <div className="indicados-lista">
+          {nomineesForTest.map((nominee, index) => (
 
-          {categoriaAtual.indicados.map((filme, index) => (
-
-            <div
-              className={
-                index === 0
-                  ? "indicado vencedor-item"
-                  : "indicado"
-              }
-              key={index}
-            >
-
-              <span className="numero">
-                {index + 1}
-              </span>
-
-              <span>
-                {filme}
-              </span>
-
-            </div>
+            <Cardfilm
+              key={`${nominee.nominee_id}-${index}`}
+              nominee={nominee}
+            />
 
           ))}
 
@@ -92,7 +85,7 @@ function MainContent({ categoria }) {
 
       </section>
 
-    </main>
+    </div>
   );
 }
 
