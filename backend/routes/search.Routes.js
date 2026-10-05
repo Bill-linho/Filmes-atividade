@@ -3,6 +3,8 @@ import { searchController } from '../controllers/search.Controller.js';
 
 const searchRouter = Router();
 
-searchRouter.get('/:year/:category', searchController.searchParams);
+searchRouter.get('/category/:category/year/:year', searchController.search);
+
+searchRouter.get('/', searchController.search);
 
 export default searchRouter;
