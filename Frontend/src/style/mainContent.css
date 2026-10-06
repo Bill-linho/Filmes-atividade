@@ -1,125 +1,142 @@
+/* Container principal */
+main {
+    width: 100%;
+}
+
 .main-content {
-  flex: 1;
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
 
-  padding: 35px 45px;
+/* Títulos */
+.main-content h1 {
+    font-size: 28px;
+    margin: 20px 0 30px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
-  max-width: 1000px;
+/* ==========================================
+   1. SEÇÃO DO VENCEDOR (Destaque Principal)
+   ========================================== */
+.winner-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+/* Card do vencedor - Compacto e Destacado */
+.winner-section .card-film {
+    width: 240px;
+    text-align: center;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.5px solid rgba(255, 215, 0, 0.4); /* Borda Dourada do Oscar */
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Imagem do vencedor */
+.winner-section .card-film img {
+    width: 100%;
+    height: 300px; /* Reduzido de 450px */
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Nome do vencedor */
+.winner-section .card-film h2 {
+    font-size: 20px;
+    margin: 12px 0 4px;
+    color: #ffd700; /* Texto dourado */
+}
+
+/* Filme do vencedor */
+.winner-section .card-film p {
+    font-size: 15px;
+    opacity: 0.9;
 }
 
 
-/* Tela inicial */
-
-.inicio {
-  padding-top: 30px;
+/* ==========================================
+   2. SEÇÃO DOS INDICADOS (Hierarquia Secundária)
+   ========================================== */
+.nominees {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Separador discreto */
 }
 
-.inicio h1 {
-  font-size: 36px;
-
-  margin-bottom: 15px;
+/* Cards dos indicados - Menores e mais sutis */
+.nominees .card-film {
+    text-align: center;
+    opacity: 0.85; /* Levemente atenuado para dar destaque ao vencedor */
+    transition: all 0.2s ease;
 }
 
-.inicio p {
-  font-size: 17px;
-
-  color: #555;
+.nominees .card-film:hover {
+    opacity: 1;
+    transform: translateY(-4px);
 }
 
-
-/* Cabeçalho da categoria */
-
-.categoria-header {
-  border-bottom: 2px solid #222;
-
-  padding-bottom: 20px;
-
-  margin-bottom: 30px;
+/* Imagens dos indicados - Reduzidas */
+.nominees .card-film img {
+    width: 100%;
+    height: 210px; /* Reduzido de 300px (manteve a proporção de poster 2:3) */
+    object-fit: cover; /* 'cover' preenche melhor a imagem sem barras pretas */
+    border-radius: 8px;
 }
 
-.categoria-header span {
-  font-size: 13px;
-
-  letter-spacing: 2px;
-
-  color: #555;
+/* Nome do indicado */
+.nominees .card-film h2 {
+    font-size: 15px; /* Reduzido de 20px */
+    margin: 8px 0 2px;
 }
 
-.categoria-header h1 {
-  font-size: 32px;
-
-  margin-top: 8px;
-}
-
-
-/* Vencedor */
-
-.vencedor {
-  margin-bottom: 45px;
-}
-
-.vencedor h2 {
-  font-size: 16px;
-
-  letter-spacing: 2px;
-
-  margin-bottom: 15px;
-}
-
-.vencedor-nome {
-  width: 100%;
-
-  min-height: 120px;
-
-  display: flex;
-
-  align-items: center;
-
-  padding: 25px;
-
-  border: 2px solid #222;
-
-  font-size: 27px;
-
-  font-weight: bold;
+/* Filme do indicado */
+.nominees .card-film p {
+    font-size: 13px; /* Reduzido de 15px */
+    color: #aaa;
 }
 
 
-/* Indicados */
-
-.indicados h2 {
-  font-size: 16px;
-
-  letter-spacing: 2px;
-
-  margin-bottom: 15px;
+/* Efeito base de transição */
+.card-film {
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.indicados-lista {
-  display: flex;
 
-  flex-direction: column;
+/* ==========================================
+   RESPONSIVIDADE
+   ========================================== */
+@media (max-width: 900px) {
+    .nominees {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
 }
 
-.indicado {
-  display: flex;
+@media (max-width: 600px) {
+    .main-content {
+        width: 100%;
+        padding: 20px 12px;
+    }
 
-  align-items: center;
+    .nominees {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-  gap: 20px;
+    .winner-section .card-film {
+        width: 210px;
+    }
 
-  min-height: 55px;
-
-  padding: 10px 15px;
-
-  border-bottom: 1px solid #222;
-
-  font-size: 17px;
-}
-
-.numero {
-  width: 25px;
-
-  font-size: 14px;
-
-  color: #777;
+    .winner-section .card-film img {
+        height: 270px;
+    }
 }

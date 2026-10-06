@@ -64,6 +64,7 @@ export const oscars = [
       name: "Jack Nicholson",
       film: "One Flew Over the Cuckoo's Nest",
       film_id: "tt0073486",
+      photo: "https://...",
       winner: true,
     },
 
@@ -73,6 +74,7 @@ export const oscars = [
         name: "Jack Nicholson",
         film: "One Flew Over the Cuckoo's Nest",
         film_id: "tt0073486",
+        photo: "https://...",
         winner: true,
       },
 
@@ -81,6 +83,7 @@ export const oscars = [
         name: "Al Pacino",
         film: "Dog Day Afternoon",
         film_id: "tt0072890",
+        photo: "https://...",
         winner: false,
       },
 
@@ -89,6 +92,7 @@ export const oscars = [
         name: "Walter Matthau",
         film: "The Sunshine Boys",
         film_id: "tt0073705",
+        photo: "https://...",
         winner: false,
       },
     ],
@@ -112,6 +116,7 @@ export const oscars = [
       name: "Russell Crowe",
       film: "Gladiator",
       film_id: "tt0172495",
+      photo: "https://...", 
       winner: true,
     },
 
@@ -121,6 +126,7 @@ export const oscars = [
         name: "Russell Crowe",
         film: "Gladiator",
         film_id: "tt0172495",
+        photo: "https://...",
         winner: true,
       },
 
@@ -129,6 +135,7 @@ export const oscars = [
         name: "Tom Hanks",
         film: "Cast Away",
         film_id: "tt0162222",
+        photo: "https://...", 
         winner: false,
       },
 
@@ -137,6 +144,7 @@ export const oscars = [
         name: "Geoffrey Rush",
         film: "Quills",
         film_id: "tt0180073",
+        photo: "https://...",
         winner: false,
       },
     ],

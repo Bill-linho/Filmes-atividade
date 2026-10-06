@@ -1,3 +1,6 @@
+import "../style/mainContent.css";
+import Cardfilm from "../components/card.jsx";
+
 import { useMemo, useState } from "react";
 
 function MainContent({
@@ -9,8 +12,7 @@ function MainContent({
   loadingOscar = false,
   error = "",
 }) {
-  const [selectedDecade, setSelectedDecade] =
-    useState("");
+  const [selectedDecade, setSelectedDecade] = useState("");
 
   const decades = useMemo(() => {
     return [
@@ -126,26 +128,30 @@ function MainContent({
                 {oscar.category.name}
               </h2>
 
-              <div className="nominees">
-                {oscar.nominees?.map((nominee) => (
-                  <article
-                    key={`${nominee.nominee_id}-${nominee.film_id}`}
-                    className={
-                      nominee.winner
-                        ? "nominee winner"
-                        : "nominee"
-                    }
-                  >
-                    <h3>{nominee.name}</h3>
+              <section className="winner-section">
+                <h1>Vencedor</h1>
 
-                    <p>{nominee.film}</p>
+                <Cardfilm
+                  nominee={oscar.winner}
+                />
+              </section>
 
-                    {nominee.winner && (
-                      <strong>WINNER</strong>
-                    )}
-                  </article>
-                ))}
-              </div>
+              <section>
+                <h1>Indicados</h1>
+
+                <div className="nominees">
+                  {oscar.nominees
+                    ?.filter(
+                      (nominee) => !nominee.winner
+                    )
+                    .map((nominee, index) => (
+                      <Cardfilm
+                        key={`${nominee.nominee_id}-${index}`}
+                        nominee={nominee}
+                      />
+                    ))}
+                </div>
+              </section>
             </>
           )}
 
