@@ -1,83 +1,22 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
+import { nodefs } from "../server.js";
 
 
 export const Category = sequelize.define('Category', {
   name: { type: DataTypes.STRING, allowNull: false, unique: true },
 });
 
-export const bulkCategories = async () => {
-  Category.bulkCreate(
-    [
-      { name: "ACTOR IN A LEADING ROLE" },
-      { name: "ACTOR IN A SUPPORTING ROLE" },
-      { name: "ACTRESS IN A LEADING ROLE" },
-      { name: "ACTRESS IN A SUPPORTING ROLE" },
-      { name: "ANIMATED FEATURE FILM" },
-      { name: "ART DIRECTION" },
-      { name: "ART DIRECTION (Black-and-White)" },
-      { name: "ART DIRECTION (Color)" },
-      { name: "ASSISTANT DIRECTOR" },
-      { name: "AWARD OF COMMENDATION" },
-      { name: "BEST PICTURE" },
-      { name: "CASTING" },
-      { name: "CINEMATOGRAPHY" },
-      { name: "CINEMATOGRAPHY (Black-and-White)" },
-      { name: "CINEMATOGRAPHY (Color)" },
-      { name: "COSTUME DESIGN" },
-      { name: "COSTUME DESIGN (Black-and-White)" },
-      { name: "COSTUME DESIGN (Color)" },
-      { name: "DANCE DIRECTION" },
-      { name: "DIRECTING" },
-      { name: "DIRECTING (Comedy Picture)" },
-      { name: "DIRECTING (Dramatic Picture)" },
-      { name: "DOCUMENTARY (Feature)" },
-      { name: "DOCUMENTARY (Short Subject)" },
-      { name: "FILM EDITING" },
-      { name: "GORDON E. SAWYER AWARD" },
-      { name: "HONORARY AWARD" },
-      { name: "INTERNATIONAL FEATURE FILM" },
-      { name: "IRVING G. THALBERG MEMORIAL AWARD" },
-      { name: "JEAN HERSHOLT HUMANITARIAN AWARD" },
-      { name: "JOHN A. BONNER MEDAL OF COMMENDATION" },
-      { name: "MAKEUP AND HAIRSTYLING" },
-      { name: "MEDAL OF COMMENDATION" },
-      { name: "MUSIC (Original Score)" },
-      { name: "MUSIC (Original Song Score or Adaptation Score)" },
-      { name: "MUSIC (Original Song)" },
-      { name: "SCIENTIFIC AND TECHNICAL AWARD (Academy Award of Merit)" },
-      {
-        name: "SCIENTIFIC AND TECHNICAL AWARD (Scientific and Engineering Award)",
-      },
-      { name: "SCIENTIFIC AND TECHNICAL AWARD (Special Award)" },
-      { name: "SCIENTIFIC AND TECHNICAL AWARD (Technical Achievement Award)" },
-      { name: "SCIENTIFIC OR TECHNICAL AWARD (Class I)" },
-      { name: "SCIENTIFIC OR TECHNICAL AWARD (Class II)" },
-      { name: "SCIENTIFIC OR TECHNICAL AWARD (Class III)" },
-      { name: "SHORT FILM (Animated)" },
-      { name: "SHORT FILM (Live Action)" },
-      { name: "SHORT SUBJECT (Color)" },
-      { name: "SHORT SUBJECT (Comedy)" },
-      { name: "SHORT SUBJECT (Novelty)" },
-      { name: "SHORT SUBJECT (One-reel)" },
-      { name: "SHORT SUBJECT (Two-reel)" },
-      { name: "SOUND EDITING" },
-      { name: "SOUND MIXING" },
-      { name: "SOUND RECORDING" },
-      { name: "SPECIAL ACHIEVEMENT AWARD" },
-      { name: "SPECIAL ACHIEVEMENT AWARD (Sound Editing)" },
-      { name: "SPECIAL ACHIEVEMENT AWARD (Sound Effects Editing)" },
-      { name: "SPECIAL ACHIEVEMENT AWARD (Sound Effects)" },
-      { name: "SPECIAL ACHIEVEMENT AWARD (Visual Effects)" },
-      { name: "SPECIAL AWARD" },
-      { name: "SPECIAL FOREIGN LANGUAGE FILM AWARD" },
-      { name: "UNIQUE AND ARTISTIC PICTURE" },
-      { name: "VISUAL EFFECTS" },
-      { name: "WRITING (Adapted Screenplay)" },
-      { name: "WRITING (Original Screenplay)" },
-      { name: "WRITING (Original Story)" },
-      { name: "WRITING (Title Writing)" },
-    ],
-    { ignoreDuplicates: true },
-  );
+export const bulkCategory = async () => {
+  const data = await nodefs.readFile('./dumps/dump_category.json', 'utf-8')
+
+  const categorias = JSON.parse(data)
+
+  const objsParaInserir = []
+
+  for(const categoria of categorias){
+    objsParaInserir.push({name: categoria})
+  }
+
+  await Category.bulkCreate(objsParaInserir)
 } 
