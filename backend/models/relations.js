@@ -16,4 +16,4 @@ Nomination.belongsToMany(Film, { through: 'NominationFilms', foreignKey: 'nomina
 Film.belongsToMany(Nomination, { through: 'NominationFilms', foreignKey: 'filmId' });
 
 Nomination.belongsToMany(Nominee, { through: 'NominationNominee', foreignKey: 'nominationId' });
-Nominee.belongsToMany(Nomination, { through: 'NominationNominee', foreignKey: 'personId' });
+Nominee.belongsToMany(Nomination, { through: 'NominationNominee', foreignKey: 'nomineeId' });
