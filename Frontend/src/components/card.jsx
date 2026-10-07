@@ -1,6 +1,6 @@
 import "../style/card.css";
 
-function Cardfilm({ nominee }) {
+export default function Cardfilm({ nominee }) {
   if (!nominee) {
     return null;
   }
@@ -28,4 +28,3 @@ function Cardfilm({ nominee }) {
   );
 }
 
-export default Cardfilm;

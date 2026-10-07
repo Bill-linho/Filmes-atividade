@@ -1,109 +1,61 @@
-import { useEffect, useState } from "react";
-
+import { useState, useEffect } from "react";
 import Header from "../components/header.jsx";
 import Aside from "../components/aside.jsx";
 import MainContent from "../components/mainContent.jsx";
-
-import {
-  getCategories,
-  getYears,
-  getOscars,
-} from "../../services/api.js";
-
+import { useHomeData, useOscarData } from "../hooks/useHomeData.js";
 import "../style/Home.css";
 
-function Home() {
-  const [categories, setCategories] = useState([]);
-  const [years, setYears] = useState([]);
-
+export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("");
-
   const [selectedYear, setSelectedYear] = useState("");
 
-  const [oscar, setOscar] = useState(null);
+  const { categories, years, loading: loadingInitial, error: initialError } = useHomeData();
 
-  const [loading, setLoading] = useState(true);
-  const [loadingOscar, setLoadingOscar] = useState(false);
-
-  const [error, setError] = useState("");
-
+  // EFETO PARA DEFINIR O VALOR PADRÃO INICIAL
   useEffect(() => {
-    async function loadInitialData() {
-      try {
-        setLoading(true);
-        setError("");
+    if (years.length > 0 && categories.length > 0) {
+      // 1. Pega o último ano (assumindo que os anos estão ordenados ou buscando o maior)
+      const lastYearObj = years.reduce((max, item) => 
+        Number(item.year) > Number(max.year) ? item : max
+      , years[0]);
 
-        const [categoriesData, yearsData] =
-          await Promise.all([
-            getCategories(),
-            getYears(),
-          ]);
+      // 2. Busca a categoria "Melhor Filme" (ou pega a primeira caso não ache pelo nome)
+      const defaultCategory = categories.find(
+        (cat) => cat.name.toLowerCase().includes("melhor filme") || cat.name.toLowerCase().includes("best picture")
+      ) || categories[0];
 
-        setCategories(categoriesData);
-        setYears(yearsData);
-      } catch (error) {
-        console.error(error);
-        setError("Failed to load page data.");
-      } finally {
-        setLoading(false);
-      }
+      // 3. Seta os estados iniciais padrão
+      setSelectedYear(String(lastYearObj.year));
+      setSelectedCategory(String(defaultCategory.id));
     }
+  }, [years, categories]);
 
-    loadInitialData();
-  }, []);
-
-  useEffect(() => {
-    if (!selectedYear || !selectedCategory) {
-      setOscar(null);
-      return;
-    }
-
-    async function loadOscar() {
-      try {
-        setLoadingOscar(true);
-
-        const data = await getOscars(
-          selectedYear,
-          selectedCategory
-        );
-
-        setOscar(data);
-      } catch (error) {
-        console.error(error);
-        setOscar(null);
-      } finally {
-        setLoadingOscar(false);
-      }
-    }
-
-    loadOscar();
-  }, [selectedYear, selectedCategory]);
+  // O hook useOscarData é disparado automaticamente assim que os dois estados acima são preenchidos
+  const { oscar, loading: loadingOscar, error: oscarError } = useOscarData(
+    selectedYear,
+    selectedCategory
+  );
 
   return (
     <div className="site">
       <Header />
-
       <div className="layout">
         <Aside
           categories={categories}
           selectedCategory={selectedCategory}
           onSelectCategory={setSelectedCategory}
-          loading={loading}
+          loading={loadingInitial}
         />
-
         <MainContent
           years={years}
           selectedYear={selectedYear}
           onSelectYear={setSelectedYear}
-          loading={loading}
+          loading={loadingInitial}
           oscar={oscar}
           loadingOscar={loadingOscar}
-          error={error}
+          error={initialError || oscarError}
         />
       </div>
     </div>
   );
 }
-
-export default Home;
-

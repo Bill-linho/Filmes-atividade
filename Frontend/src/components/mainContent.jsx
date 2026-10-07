@@ -1,9 +1,8 @@
-import "../style/mainContent.css";
+import { useMemo, useState, useEffect } from "react";
 import Cardfilm from "../components/card.jsx";
+import "../style/mainContent.css";
 
-import { useMemo, useState } from "react";
-
-function MainContent({
+export default function MainContent({
   years = [],
   selectedYear = "",
   onSelectYear,
@@ -14,63 +13,47 @@ function MainContent({
 }) {
   const [selectedDecade, setSelectedDecade] = useState("");
 
+  // Cálculo memoizado de décadas
   const decades = useMemo(() => {
-    return [
-      ...new Set(
-        years.map(
-          (item) =>
-            Math.floor(Number(item.year) / 10) * 10
-        )
-      ),
-    ].sort((a, b) => a - b);
+    const uniqueDecades = new Set(
+      years.map((item) => Math.floor(Number(item.year) / 10) * 10)
+    );
+    return Array.from(uniqueDecades).sort((a, b) => a - b);
   }, [years]);
 
-  const filteredYears = useMemo(() => {
-    if (!selectedDecade) {
-      return [];
+  // Sincroniza a década selecionada automaticamente quando o selectedYear for alterado externamente
+  useEffect(() => {
+    if (selectedYear) {
+      const decade = Math.floor(Number(selectedYear) / 10) * 10;
+      setSelectedDecade(decade);
     }
+  }, [selectedYear]);
 
+  // Filtro de anos por década selecionada
+  const filteredYears = useMemo(() => {
+    if (!selectedDecade) return [];
     return years
-      .filter(
-        (item) =>
-          Math.floor(Number(item.year) / 10) * 10 ===
-          Number(selectedDecade)
-      )
-      .sort(
-        (a, b) =>
-          Number(a.year) - Number(b.year)
-      );
+      .filter((item) => Math.floor(Number(item.year) / 10) * 10 === Number(selectedDecade))
+      .sort((a, b) => Number(a.year) - Number(b.year));
   }, [years, selectedDecade]);
 
-  function handleDecadeClick(decade) {
+  const handleDecadeClick = (decade) => {
     setSelectedDecade(decade);
     onSelectYear("");
-  }
-
-  function handleYearClick(year) {
-    onSelectYear(String(year));
-  }
+  };
 
   return (
     <main className="main-content">
+      {/* Seção Décadas */}
       <section className="year-navigation">
-        <h3 className="year-navigation-title">
-          Decades
-        </h3>
-
+        <h3 className="year-navigation-title">Décadas</h3>
         <div className="horizontal-scroll">
           {decades.map((decade) => (
             <button
               key={decade}
               type="button"
-              className={`decade-button ${
-                selectedDecade === decade
-                  ? "selected"
-                  : ""
-              }`}
-              onClick={() =>
-                handleDecadeClick(decade)
-              }
+              className={`decade-button ${selectedDecade === decade ? "selected" : ""}`}
+              onClick={() => handleDecadeClick(decade)}
             >
               {decade}s
             </button>
@@ -78,32 +61,23 @@ function MainContent({
         </div>
       </section>
 
+      {/* Seção Anos */}
       <section className="year-navigation">
-        <h3 className="year-navigation-title">
-          Years
-        </h3>
-
+        <h3 className="year-navigation-title">Anos</h3>
         <div className="horizontal-scroll">
           {loading ? (
-            <p>Loading years...</p>
+            <p>Carregando anos...</p>
           ) : (
             filteredYears.map((item) => {
-              const year = String(item.year);
-
+              const yearStr = String(item.year);
               return (
                 <button
-                  key={item.id}
+                  key={item.id || item.year}
                   type="button"
-                  className={`year-button ${
-                    selectedYear === year
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    handleYearClick(year)
-                  }
+                  className={`year-button ${selectedYear === yearStr ? "selected" : ""}`}
+                  onClick={() => onSelectYear(yearStr)}
                 >
-                  {year}
+                  {yearStr}
                 </button>
               );
             })
@@ -111,62 +85,51 @@ function MainContent({
         </div>
       </section>
 
+      {/* Exibição dos Resultados */}
       {selectedYear && (
-        <section className="oscar-results">
-          {loadingOscar && (
-            <p>Loading Oscar data...</p>
-          )}
-
-          {!loadingOscar && error && (
-            <p>{error}</p>
-          )}
-
-          {!loadingOscar && !error && oscar && (
-            <>
-              <h2>
-                {oscar.year.year} —{" "}
-                {oscar.category.name}
-              </h2>
-
-              <section className="winner-section">
-                <h1>Vencedor</h1>
-
-                <Cardfilm
-                  nominee={oscar.winner}
-                />
-              </section>
-
-              <section>
-                <h1>Indicados</h1>
-
-                <div className="nominees">
-                  {oscar.nominees
-                    ?.filter(
-                      (nominee) => !nominee.winner
-                    )
-                    .map((nominee, index) => (
-                      <Cardfilm
-                        key={`${nominee.nominee_id}-${index}`}
-                        nominee={nominee}
-                      />
-                    ))}
-                </div>
-              </section>
-            </>
-          )}
-
-          {!loadingOscar &&
-            !error &&
-            selectedYear &&
-            !oscar && (
-              <p>
-                No Oscar data found for this selection.
-              </p>
-            )}
-        </section>
+        <OscarResults
+          oscar={oscar}
+          loading={loadingOscar}
+          error={error}
+        />
       )}
     </main>
   );
 }
 
-export default MainContent;
+function OscarResults({ oscar, loading, error }) {
+  if (loading) return <p className="oscar-results">Carregando dados do Oscar...</p>;
+  if (error) return <p className="oscar-results error">{error}</p>;
+  if (!oscar) return <p className="oscar-results">Nenhum dado encontrado para esta seleção.</p>;
+
+  const nonWinners = oscar.nominees?.filter((nominee) => !nominee.winner) || [];
+
+  return (
+    <section className="oscar-results">
+      <h2>
+        {oscar.year?.year} — {oscar.category?.name}
+      </h2>
+
+      {oscar.winner && (
+        <section className="winner-section">
+          <h1>Vencedor</h1>
+          <Cardfilm nominee={oscar.winner} />
+        </section>
+      )}
+
+      {nonWinners.length > 0 && (
+        <section>
+          <h1>Indicados</h1>
+          <div className="nominees">
+            {nonWinners.map((nominee, index) => (
+              <Cardfilm
+                key={nominee.nominee_id ? `${nominee.nominee_id}-${index}` : index}
+                nominee={nominee}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+    </section>
+  );
+}
