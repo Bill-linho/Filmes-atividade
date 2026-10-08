@@ -23,6 +23,9 @@
 
 .year-navigation {
   margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .year-navigation-title {
@@ -31,16 +34,21 @@
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
+  text-align: center;
 }
 
 .horizontal-scroll {
   display: flex;
   gap: 5px;
-  width: 100%;
+  width: 300px;
   max-width: 850px;
   overflow-x: auto;
   overflow-y: hidden;
-  padding-bottom: 4px;
+  padding: 2px 0 8px;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
 }
 
 .horizontal-scroll::-webkit-scrollbar {
@@ -113,6 +121,7 @@
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
+  justify-content: right;
   cursor: pointer;
   transition:
     background 0.2s ease,
@@ -137,17 +146,6 @@
    OSCAR RESULT
 ========================= */
 
-.oscar-results {
-  margin-top: 40px;
-  padding-top: 25px;
-  border-top: 2px solid #222;
-}
-
-.oscar-results h2 {
-  margin: 0 0 25px;
-  font-size: 22px;
-}
-
 .nominees {
   display: grid;
   grid-template-columns:
@@ -156,7 +154,7 @@
 }
 
 .nominee {
-  padding: 18px;
+  padding: 14px;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
