@@ -7,7 +7,7 @@ function loading(){
     const navigate = useNavigate()
     
     useEffect(()=>{
-        navigate(`/year/2025/category/best-picture`)
+        navigate(`/year/2025/category/best%20picture`)
     },[])
 
     return(

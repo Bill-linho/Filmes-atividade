@@ -1,41 +1,28 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import { groupCategories } from "../utils/categoriesGroup.js";
 
 import "../style/aside.css";
+import { Link, useParams } from "react-router-dom";
 
-function Aside({
+let globalCategory
+
+
+export default function Aside({
   categories = [],
-  selectedCategory = "",
-  onSelectCategory,
-  loading = false,
+  yearSelect
 }) {
+
+ useEffect(()=>{
+   const categorySelected = useParams()
+
+ },[globalCategory])
+
   const [isOpen, setIsOpen] = useState(false);
 
   const {
     mainCategories,
     otherCategories,
   } = groupCategories(categories);
-
-  const selectedOtherCategory =
-    otherCategories.find(
-      (category) =>
-        category.id === selectedCategory
-    );
-
-  function handleCategoryClick(categoryId) {
-    if (selectedCategory === categoryId) {
-      onSelectCategory("");
-      return;
-    }
-
-    onSelectCategory(categoryId);
-  }
-
-  function handleOtherClick(categoryId) {
-    handleCategoryClick(categoryId);
-    setIsOpen(false);
-  }
 
   return (
     <aside className="aside">
@@ -54,7 +41,7 @@ function Aside({
           <div className="category-items">
             {mainCategories.map((category) => {
               const isSelected =
-                selectedCategory === category.id;
+                globalCategory === category.id;
 
               return (
                 <button
@@ -63,14 +50,9 @@ function Aside({
                   className={`category-btn ${
                     isSelected ? "selected" : ""
                   }`}
-                  onClick={() =>
-                    handleCategoryClick(
-                      category.id
-                    )
-                  }
-                  disabled={loading}
+                  onClick={globalCategory = category.id}
                 >
-                  {category.name}
+                  <Link to={`/year/${yearSelect}/category/${categories.id}`}>{category.name}</Link>
                 </button>
               );
             })}
@@ -82,21 +64,21 @@ function Aside({
 
           <button
             type="button"
-            className={`category-select-trigger ${
-              selectedOtherCategory
-                ? "selected"
-                : ""
+            className={`category-select-trigger ${""
+              // selectedOtherCategory
+                // ? "selected"
+                // : ""
             }`}
             onClick={() =>
               setIsOpen((current) => !current)
             }
-            disabled={loading}
+            // disabled={loading}
             aria-expanded={isOpen}
           >
             <span>
-              {selectedOtherCategory
+              {/* {selectedOtherCategory
                 ? selectedOtherCategory.name
-                : "Select category..."}
+                : "Select category..."} */}
             </span>
 
             <span
@@ -121,9 +103,6 @@ function Aside({
                     className={`category-dropdown-item ${
                       isSelected ? "selected" : ""
                     }`}
-                    onClick={() =>
-                      handleOtherClick(category.id)
-                    }
                   >
                     <span>{category.name}</span>
 
@@ -143,5 +122,5 @@ function Aside({
   );
 }
 
-export default Aside;
+
 

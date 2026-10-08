@@ -15,7 +15,7 @@ const [erro, setErro] = useState(false)
       try {
 
         const response = await axios.get(
-          `https://6abe989ac4d5ac5483029d7b.mockapi.io/years/${year}/${category}`
+          `https://filmes-atividade.onrender.com/search?category=${category}&year=${year}`
         );
 
         setFilms(response.data)

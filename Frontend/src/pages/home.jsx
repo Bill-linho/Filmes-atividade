@@ -1,17 +1,17 @@
 import Aside from "../components/aside.jsx"
+import { categories } from "../../data/mockData.js"
 import Header from "../components/header.jsx"
 import MainContent from "../components/mainContent.jsx"
-import { useState } from "react";
 import "../style/Home.css"
 import { useParams } from "react-router-dom";
 
-function Home(){
+let globalYear
+
+export default function Home(){
 
   const movie = useParams()
 
-  const [categoriaSelecionada, setCategoriaSelecionada] =
-    useState("Melhor Filme");
-
+  console.log(categories)
 
   return (
     <div className="site">
@@ -19,9 +19,7 @@ function Home(){
       <div className="layout">
         <Aside
           categories={categories}
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
-          loading={loadingInitial}
+          yearSelect={1975}
         />
         <MainContent
         movie={movie}
@@ -30,3 +28,4 @@ function Home(){
     </div>
   );
 }
+
