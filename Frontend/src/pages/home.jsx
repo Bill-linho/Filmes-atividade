@@ -15,24 +15,18 @@ function Home(){
 
   return (
     <div className="site">
-
       <Header />
-
       <div className="layout">
-
         <Aside
-          categoriaSelecionada={categoriaSelecionada}
-          selecionarCategoria={setCategoriaSelecionada}
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onSelectCategory={setSelectedCategory}
+          loading={loadingInitial}
         />
-
         <MainContent
         movie={movie}
         />
-
       </div>
-
     </div>
-  );   
+  );
 }
-
-export default Home

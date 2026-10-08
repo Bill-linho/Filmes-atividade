@@ -1,83 +1,209 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+.site {
+  min-height: 100vh;
 
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-
-  background: #ffffff;
+  background: #f8f8f8;
 
   color: #222;
 }
 
-
-button {
-  font-family: inherit;
-}
-
-
-/* Container geral */
-
-.site {
-  width: 100%;
-  min-height: 100vh;
-}
-
-
-/* Layout Header + Aside + Main */
-
 .layout {
   display: flex;
-
-  width: 100%;
-
-  min-height: calc(100vh - 75px);
+  min-height: calc(100vh - 70px);
 }
 
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 25px;
+}
 
-/* Responsividade */
+/* =========================
+   YEARS
+========================= */
+
+.year-navigation {
+  margin-bottom: 12px;
+}
+
+.year-navigation-title {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.horizontal-scroll {
+  display: flex;
+  gap: 5px;
+  width: 100%;
+  max-width: 850px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 4px;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background: #222;
+
+  border-radius: 10px;
+}
+
+/* =========================
+   DECADES
+========================= */
+
+.decade-button {
+  flex: 0 0 auto;
+
+  padding: 7px 11px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #222;
+
+  background: #fff;
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.decade-button:hover {
+  color: #fff;
+
+  background: #222;
+
+  border-color: #222;
+}
+
+.decade-button.selected {
+  color: #fff;
+
+  background: #222;
+
+  border-color: #222;
+}
+
+/* =========================
+   YEARS
+========================= */
+
+.year-button {
+  flex: 0 0 auto;
+  min-width: 65px;
+  padding: 7px 11px;
+  font-size: 12px;
+  color: #222;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.year-button:hover {
+  color: #fff;
+  background: #222;
+  border-color: #222;
+}
+
+.year-button.selected {
+  color: #fff;
+  background: #222;
+  border-color: #222;
+  font-weight: bold;
+}
+
+/* =========================
+   OSCAR RESULT
+========================= */
+
+.oscar-results {
+  margin-top: 40px;
+  padding-top: 25px;
+  border-top: 2px solid #222;
+}
+
+.oscar-results h2 {
+  margin: 0 0 25px;
+  font-size: 22px;
+}
+
+.nominees {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.nominee {
+  padding: 18px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.nominee h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.nominee p {
+  margin: 0 0 12px;
+  color: #666;
+  font-size: 14px;
+}
+
+.nominee strong {
+  display: inline-block;
+  padding: 5px 8px;
+  font-size: 11px;
+  color: #fff;
+  background: #222;
+  border-radius: 3px;
+}
+
+.nominee.winner {
+  border: 2px solid #222;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 700px) {
-
-  .header {
-    padding: 0 15px;
-  }
-
-
-  .header-title {
-    display: none;
-  }
-
-
   .layout {
     flex-direction: column;
   }
 
-
   .aside {
-    width: 100%;
-    min-width: 100%;
-
+    width: auto;
+    min-width: 0;
     min-height: auto;
-
     border-right: none;
-
     border-bottom: 2px solid #222;
   }
 
-
-  .categoria-itens {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-  }
-
-
   .main-content {
-    padding: 25px 20px;
+    padding: 20px;
   }
-
 }
