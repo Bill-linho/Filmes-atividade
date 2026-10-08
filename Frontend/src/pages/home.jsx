@@ -3,8 +3,11 @@ import Header from "../components/header.jsx"
 import MainContent from "../components/mainContent.jsx"
 import { useState } from "react";
 import "../style/Home.css"
+import { useParams } from "react-router-dom";
 
 function Home(){
+
+  const movie = useParams()
 
   const [categoriaSelecionada, setCategoriaSelecionada] =
     useState("Melhor Filme");
@@ -23,7 +26,7 @@ function Home(){
         />
 
         <MainContent
-          categoria={categoriaSelecionada}
+        movie={movie}
         />
 
       </div>

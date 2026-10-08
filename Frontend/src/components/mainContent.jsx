@@ -1,48 +1,23 @@
 import "../style/mainContent.css";
 import Cardfilm from "../components/card.jsx";
-
-import { useEffect, useState } from "react";
-import axios from "axios";
-
-function MainContent() {
-
-  const [year, setYear] = useState(1977)
-  const [category, setCategory] = useState("best-picture")
-
-  const [nominee, setNominee] = useState([]);
-
-  useEffect(() => {
-
-    const getFilms = async () => {
-
-      try {
-
-        const response = await axios.get(
-          `https://6abe989ac4d5ac5483029d7b.mockapi.io/years/${year}`
-        );
-
-        setNominee(response.data.nominees)
-
-      } catch (erro) {
-        console.error("Erro ao buscar dados:", erro);
-
-        setNominee([])
-      }
-
-    };
-
-    getFilms();
-
-  }, [year, category]);
+import useFetcherFilm  from "../hooks/useFetchFilm.jsx";
 
 
-  const winner = nominee.find(
-    (nominee) => nominee.winner === true
-  );
+function MainContent({ movie }) {
 
-  const otherNominees = nominee.filter(
-    (nominee) => nominee.winner === false
-  );
+const {films, loading, erro} = useFetcherFilm( movie.yearId , movie.categoryId)
+
+if(loading){
+  return <p>carregando filmes...</p>
+}
+
+if(erro){
+  return <p>{erro}</p>
+}
+
+  const vencedor = films.find((film) => film.winner);
+
+  const indicados = films.filter((film) => !film.winner);
 
   const nomineesForTest = [
     ...otherNominees,
@@ -60,7 +35,7 @@ function MainContent() {
         <h1>Vencedor</h1>
 
         {winner && (
-          <Cardfilm nominee={winner} />
+          <Cardfilm nominee={vencedor} />
         )}
 
       </section>
@@ -75,7 +50,7 @@ function MainContent() {
           {nomineesForTest.map((nominee, index) => (
 
             <Cardfilm
-              key={`${nominee.nominee_id}-${index}`}
+              key={`${indicados.nominee_id}-${index}`}
               nominee={nominee}
             />
 
