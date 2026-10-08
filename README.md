@@ -28,3 +28,13 @@ exemplo de API que o frontend espera receber:
     ] 
 }
 ```
+
+No backend, é possível pesquisar uma categoria por ano:
+
+```text
+GET http://localhost:3000/search?category=BEST%20PICTURE&year=2016
+```
+
+A resposta contém os dados da cerimônia e a lista de indicados no formato acima.
+O dump atual não possui fotos dos indicados, então `photo` é retornado como
+`null`. Os parâmetros `category` e `year` são obrigatórios.
