@@ -1,62 +1,59 @@
 import { useMemo, useState, useEffect } from "react";
 import Cardfilm from "../components/card.jsx";
-import "../style/mainContent.css";
+import useFetcherFilm  from "../hooks/useFetchFilm.jsx";
 
-export default function MainContent({
-  years = [],
-  selectedYear = "",
-  onSelectYear,
-  loading = false,
-  oscar = null,
-  loadingOscar = false,
-  error = "",
-}) {
-  const [selectedDecade, setSelectedDecade] = useState("");
 
-  // Cálculo memoizado de décadas
-  const decades = useMemo(() => {
-    const uniqueDecades = new Set(
-      years.map((item) => Math.floor(Number(item.year) / 10) * 10)
-    );
-    return Array.from(uniqueDecades).sort((a, b) => a - b);
-  }, [years]);
+function MainContent({ movie }) {
 
-  // Sincroniza a década selecionada automaticamente quando o selectedYear for alterado externamente
-  useEffect(() => {
-    if (selectedYear) {
-      const decade = Math.floor(Number(selectedYear) / 10) * 10;
-      setSelectedDecade(decade);
-    }
-  }, [selectedYear]);
+const {films, loading, erro} = useFetcherFilm( movie.yearId , movie.categoryId)
 
-  // Filtro de anos por década selecionada
-  const filteredYears = useMemo(() => {
-    if (!selectedDecade) return [];
-    return years
-      .filter((item) => Math.floor(Number(item.year) / 10) * 10 === Number(selectedDecade))
-      .sort((a, b) => Number(a.year) - Number(b.year));
-  }, [years, selectedDecade]);
+if(loading){
+  return <p>carregando filmes...</p>
+}
 
-  const handleDecadeClick = (decade) => {
-    setSelectedDecade(decade);
-    onSelectYear("");
-  };
+if(erro){
+  return <p>{erro}</p>
+}
+
+  const vencedor = films.find((film) => film.winner);
+
+  const indicados = films.filter((film) => !film.winner);
+
+  const nomineesForTest = [
+    ...otherNominees,
+    ...otherNominees,
+    ...otherNominees,
+    ...otherNominees
+];
+
 
   return (
-    <main className="main-content">
-      {/* Seção Décadas */}
-      <section className="year-navigation">
-        <h3 className="year-navigation-title">Décadas</h3>
-        <div className="horizontal-scroll">
-          {decades.map((decade) => (
-            <button
-              key={decade}
-              type="button"
-              className={`decade-button ${selectedDecade === decade ? "selected" : ""}`}
-              onClick={() => handleDecadeClick(decade)}
-            >
-              {decade}s
-            </button>
+    <div className="main-content">
+
+      <section className="winner-section">
+
+        <h1>Vencedor</h1>
+
+        {winner && (
+          <Cardfilm nominee={vencedor} />
+        )}
+
+      </section>
+
+
+      <section>
+
+        <h1>Indicados</h1>
+
+        <div className="nominees">
+
+          {nomineesForTest.map((nominee, index) => (
+
+            <Cardfilm
+              key={`${indicados.nominee_id}-${index}`}
+              nominee={nominee}
+            />
+
           ))}
         </div>
       </section>
