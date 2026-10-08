@@ -64,7 +64,7 @@ export const oscars = [
       name: "Jack Nicholson",
       film: "One Flew Over the Cuckoo's Nest",
       film_id: "tt0073486",
-      photo: "https://...",
+      photo: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500",
       winner: true,
     },
 

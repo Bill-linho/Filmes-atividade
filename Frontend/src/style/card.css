@@ -18,6 +18,15 @@
     display: block;
 }
 
+.card-image {
+    width: 100%;
+    height: 300px;
+    background-color: #1a1a1a; /* Fundo escuro enquanto carrega */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .card-info {
     padding: 15px;
     text-align: center;

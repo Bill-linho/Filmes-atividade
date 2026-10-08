@@ -2,6 +2,8 @@ import "../style/card.css";
 
 export default function Cardfilm({ nominee }) {
   if (!nominee) {
+    console.log("foto:", nominee.photo);
+    
     return null;
   }
 
