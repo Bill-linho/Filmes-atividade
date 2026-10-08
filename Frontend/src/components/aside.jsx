@@ -1,5 +1,5 @@
 import "../style/aside.css";
-import { categorias, dados } from "../temp/dados.js";
+import { categorias } from "../temp/dados.js";
 
 function Aside({ categoriaSelecionada, selecionarCategoria }) {
 
