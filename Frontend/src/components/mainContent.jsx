@@ -1,59 +1,65 @@
-import Cardfilm from "../components/card.jsx";
-import useFetcherFilm  from "../hooks/useFetchFilm.jsx";
+import { useParams } from "react-router-dom";
+import Cardfilm from "./card.jsx";
+import useFetchFilm from "../hooks/useFetchFilm.js";
+import "../style/mainContent.css";
 
-export default function MainContent({ movie }) {
+const DEFAULT_YEAR = "1975";
+const DEFAULT_CATEGORY = "best-actor";
 
-const {films, loading, erro} = useFetcherFilm( movie.yearId , movie.categoryId)
+export default function MainContent() {
+  const { yearId, categoryId } = useParams();
 
-if(loading){
-  return <p>carregando filmes...</p>
-}
+  const year = yearId || DEFAULT_YEAR;
+  const category = categoryId || DEFAULT_CATEGORY;
 
-if(erro){
-  return <p>{erro}</p>
-}
+  const { films, loading, error } = useFetchFilm(year, category);
+  if (loading) {
+    return (
+      <main className="main-content">
+        <p>Carregando filmes...</p>
+      </main>
+    );
+  }
 
-  const vencedor = films.find((film) => film.winner);
+  if (error) {
+    return (
+      <main className="main-content">
+        <p role="alert">{error}</p>
+      </main>
+    );
+  }
 
-  const indicados = films.filter((film) => !film.winner);
-
-  const nomineesForTest = [
-    ...otherNominees,
-    ...otherNominees,
-    ...otherNominees,
-    ...otherNominees
-];
-
+  const winners = films.filter((film) => film.winner === true);
+  const nominees = films.filter((film) => film.winner === false);
 
   return (
     <main className="main-content">
-
       <section className="winner-section">
-
         <h1>Vencedor</h1>
 
-        {winner && (
-          <Cardfilm nominee={vencedor} />
+        {winners.length > 0 ? (
+          <div className="winners">
+            {winners.map((film) => (
+              <Cardfilm key={film.nominee_id} nominee={film} />
+            ))}
+          </div>
+        ) : (
+          <p>Nenhum vencedor encontrado.</p>
         )}
-
       </section>
 
-
-      <section>
-
+      <section className="nominees-section">
         <h1>Indicados</h1>
 
-        <div className="nominees">
-
-          {nomineesForTest.map((nominee, index) => (
-
-            <Cardfilm
-              key={`${indicados.nominee_id}-${index}`}
-              nominee={nominee}
-            />
-
-          ))}
-        </div>
+        {nominees.length > 0 ? (
+          <div className="nominees">
+            {nominees.map((film) => (
+              <Cardfilm key={film.nominee_id} nominee={film} />
+            ))}
+          </div>
+        ) : (
+          <p>Nenhum outro indicado encontrado.</p>
+        )}
       </section>
     </main>
   );

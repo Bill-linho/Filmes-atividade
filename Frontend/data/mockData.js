@@ -31,13 +31,11 @@ export const years = [
     year: 1975,
     ceremony: 48,
   },
-
   {
     id: "2000",
     year: 2000,
     ceremony: 73,
   },
-
   {
     id: "2025",
     year: 2025,
@@ -52,99 +50,88 @@ export const oscars = [
       year: 1975,
       ceremony: 48,
     },
-
     category: {
-      id: "best-actor",
+      id: "best actor",
       name: "Best Actor",
       group: "main",
     },
-
     winner: {
       nominee_id: "nm0000199",
       name: "Jack Nicholson",
       film: "One Flew Over the Cuckoo's Nest",
       film_id: "tt0073486",
-      photo: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500",
+      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500",
       winner: true,
     },
-
     nominees: [
       {
         nominee_id: "nm0000199",
         name: "Jack Nicholson",
         film: "One Flew Over the Cuckoo's Nest",
         film_id: "tt0073486",
-        photo: "https://...",
+        photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500",
         winner: true,
       },
-
       {
         nominee_id: "nm0000194",
         name: "Al Pacino",
         film: "Dog Day Afternoon",
         film_id: "tt0072890",
-        photo: "https://...",
+        photo: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500",
         winner: false,
       },
-
       {
         nominee_id: "nm0001570",
         name: "Walter Matthau",
         film: "The Sunshine Boys",
         film_id: "tt0073705",
-        photo: "https://...",
+        photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500",
         winner: false,
       },
     ],
   },
-
   {
     year: {
       id: "2000",
       year: 2000,
       ceremony: 73,
     },
-
     category: {
-      id: "best-actor",
+      id: "best actor",
       name: "Best Actor",
       group: "main",
     },
-
     winner: {
       nominee_id: "nm0000158",
       name: "Russell Crowe",
       film: "Gladiator",
       film_id: "tt0172495",
-      photo: "https://...", 
+      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500",
       winner: true,
     },
-
     nominees: [
       {
         nominee_id: "nm0000158",
         name: "Russell Crowe",
         film: "Gladiator",
         film_id: "tt0172495",
-        photo: "https://...",
+        photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500",
         winner: true,
       },
-
       {
         nominee_id: "nm0000129",
         name: "Tom Hanks",
         film: "Cast Away",
         film_id: "tt0162222",
-        photo: "https://...", 
+        photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500",
         winner: false,
       },
-
       {
         nominee_id: "nm0000197",
         name: "Geoffrey Rush",
         film: "Quills",
         film_id: "tt0180073",
-        photo: "https://...",
+        photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500",
         winner: false,
       },
     ],

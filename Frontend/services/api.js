@@ -1,57 +1,33 @@
-import {
-  categories,
-  years,
-  oscars,
-} from "../data/mockData.js";
-
-export async function getCategories() {
-  return categories;
-}
-
-export async function getYears() {
-  return years;
-}
-
-export async function getOscars(year, category) {
-  return (
-    oscars.find(
-      (item) =>
-        Number(item.year.year) === Number(year) &&
-        item.category.id === category
-    ) ?? null
-  );
-}
-
-/*Consumindo back*:
 import axios from "axios";
+import { oscars } from "../data/mockData.js";
 
-// Instância centralizada do Axios
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000/api", // URL do seu backend
-  timeout: 10000, // Tempo limite de resposta (10s)
-  headers: {
-    "Content-Type": "application/json",
-  },
+  baseURL: import.meta.env.VITE_API_BASE_URL || "/api-render",
+  timeout: 20000,
 });
 
-export async function getCategories() {
-  const response = await api.get("/categories");
-  return response.data;
-}
+export async function getFilms(year, category, signal) {
+  const usarMock = import.meta.env.VITE_USE_MOCK === "true";
 
-export async function getYears() {
-  const response = await api.get("/years");
-  return response.data;
-}
+  // MOCK LOCAL (Para dev/offline)
+  if (usarMock) {
+    const normalizedCategory = String(category).toLowerCase().replace(/-/g, " ");
+    const mockEncontrado = oscars.find(
+      (item) =>
+        String(item.year.year) === String(year) &&
+        item.category.id.toLowerCase().replace(/-/g, " ") === normalizedCategory
+    );
+    return mockEncontrado ? mockEncontrado.nominees : [];
+  }
 
-export async function getOscars(year, category) {
-  const response = await api.get("/oscars", {
-    params: {
-      year,
-      category,
-    },
+  // REQUISIÇÃO REAL
+  // O contrato diz que a API recebe 'year' e 'category' e deve retornar o recurso filtrado
+  const response = await api.get("/search", {
+    params: { year, category },
+    signal,
   });
-  return response.data;
+
+  return response.data?.nominees || response.data || [];
 }
 
-export default api;*/
+export default api;

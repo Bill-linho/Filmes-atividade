@@ -1,19 +1,21 @@
 import "../style/card.css";
+import "../style/Home.css";
 
 export default function Cardfilm({ nominee }) {
-  if (!nominee) {
-    console.log("foto:", nominee.photo);
-    
-    return null;
-  }
+  if (!nominee) return null;
+
+  const isWinner = nominee.winner === true;
 
   return (
-    <div className="card-film">
+    <article
+      className={`card-film ${isWinner ? "winner" : "nominee"}`}
+    >
       <div className="card-image">
         {nominee.photo ? (
           <img
             src={nominee.photo}
-            alt={nominee.name}
+            alt={nominee.name || nominee.film}
+            loading="lazy"
           />
         ) : (
           <div className="card-image-placeholder">
@@ -25,8 +27,9 @@ export default function Cardfilm({ nominee }) {
       <div className="card-info">
         <h2>{nominee.name}</h2>
         <p>{nominee.film}</p>
+
+        {isWinner}
       </div>
-    </div>
+    </article>
   );
 }
-

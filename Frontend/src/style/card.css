@@ -25,6 +25,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 .card-info {
@@ -42,3 +43,10 @@
     font-size: 16px;
     color: #666;
 }
+
+/* Altura padrão para os Indicados (menores) */
+.card-film.nominee .card-image,
+.card-film.nominee img {
+    height: 200px; /* Reduz a altura da imagem dos indicados */
+}
+
