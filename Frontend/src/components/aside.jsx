@@ -4,7 +4,6 @@ import { groupCategories } from "../utils/categoriesGroup.js";
 import { DEFAULT_YEAR, DEFAULT_CATEGORY } from "../constants/defaultRoute.js";
 import "../style/aside.css";
 
-
 export default function Aside({ categories = [] }) {
   const { yearId, categoryId } = useParams();
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +13,11 @@ export default function Aside({ categories = [] }) {
 
   const { mainCategories = [], otherCategories = [] } =
     groupCategories(categories) || {};
+
+  // Verifica se a categoria ativa atual pertence ao grupo "Other"
+  const activeOtherCategory = otherCategories.find(
+    (cat) => cat.id === activeCategory
+  );
 
   function renderCategory(category) {
     if (!category || !category.id) return null;
@@ -53,11 +57,15 @@ export default function Aside({ categories = [] }) {
 
           <button
             type="button"
-            className="category-select-trigger"
+            className={`category-select-trigger ${activeOtherCategory ? "selected" : ""}`}
             onClick={() => setIsOpen((open) => !open)}
             aria-expanded={isOpen}
           >
-            <span>Select category</span>
+            <span>
+              {activeOtherCategory 
+                ? activeOtherCategory.name || activeOtherCategory.id 
+                : "Select category"}
+            </span>
             <span className={`arrow ${isOpen ? "open" : ""}`}>
               ▼
             </span>
