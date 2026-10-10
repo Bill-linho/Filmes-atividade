@@ -12,7 +12,7 @@ export const categories = [
   { id: "international feature film", name: "Best International Feature Film", group: "other" },
   { id: "documentary feature", name: "Best Documentary Feature", group: "other" },
   { id: "documentary short subject", name: "Best Documentary Short Subject", group: "other" },
-  { id: "live-action short film", name: "Best Live Action Short Film", group: "other" },
+  { id: "live action short film", name: "Best Live Action Short Film", group: "other" },
   { id: "animated short film", name: "Best Animated Short Film", group: "other" },
   { id: "original score", name: "Best Original Score", group: "other" },
   { id: "original song", name: "Best Original Song", group: "other" },
@@ -25,23 +25,31 @@ export const categories = [
   { id: "visual effects", name: "Best Visual Effects", group: "other" },
 ];
 
-export const years = [
-  {
-    id: "1975",
-    year: 1975,
-    ceremony: 48,
-  },
-  {
-    id: "2000",
-    year: 2000,
-    ceremony: 73,
-  },
-  {
-    id: "2025",
-    year: 2025,
-    ceremony: 97,
-  },
-];
+// export const years = [
+//   {
+//     id: "1975",
+//     year: 1975,
+//     ceremony: 48,
+//   },
+//   {
+//     id: "2000",
+//     year: 2000,
+//     ceremony: 73,
+//   },
+//   {
+//     id: "2025",
+//     year: 2025,
+//     ceremony: 97,
+//   },
+// ];
+export const years = [];
+
+for (let year = 1970; year <= 2026; year++) {
+  years.push({
+    id: String(year),
+    year,
+  });
+}
 
 export const oscars = [
   {

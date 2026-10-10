@@ -7,7 +7,6 @@ import "../style/Home.css";
 const FIRST_YEAR = 1927;
 const LAST_YEAR = 2025;
 
-
 const years = Array.from(
   { length: LAST_YEAR - FIRST_YEAR + 1 },
   (_, index) => LAST_YEAR - index
@@ -69,9 +68,6 @@ export default function Header() {
         <div className="header-year">{activeYear}</div>
       </div>
 
-      {/* =========================
-          DECADES & YEARS NAVIGATION
-      ========================= */}
       <div className="header-navigation-container">
         <section className="year-navigation">
           <div className="horizontal-scroll">
