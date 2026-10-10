@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { DEFAULT_YEAR, DEFAULT_CATEGORY } from "../constants/defaultRoute.js";
 import "../style/header.css";
 import "../style/Home.css";
 
 const FIRST_YEAR = 1927;
 const LAST_YEAR = 2025;
-const DEFAULT_YEAR = "2024";
-const DEFAULT_CATEGORY = "BEST PICTURE";
+
 
 const years = Array.from(
   { length: LAST_YEAR - FIRST_YEAR + 1 },

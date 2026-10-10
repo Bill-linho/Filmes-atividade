@@ -13,32 +13,34 @@ export default function useFetchFilm(year, category) {
       return;
     }
 
+    let isMounted = true;
     const controller = new AbortController();
 
     async function fetchFilms() {
       setLoading(true);
       setError("");
+      setFilms([]); // Limpa a tela imediatamente ao mudar de filtro ou alternar Mock/Back
 
       try {
-        const data = await getFilms(
-          year,
-          category,
-          controller.signal
-        );
+        const data = await getFilms(year, category, controller.signal);
 
         if (!Array.isArray(data)) {
           throw new Error("Resposta da API em formato inesperado.");
         }
 
-        setFilms(data);
+        if (isMounted) {
+          setFilms(data);
+        }
       } catch (err) {
-        if (err.code === "ERR_CANCELED") return;
+        if (err.code === "ERR_CANCELED" || err.name === "CanceledError") return;
 
         console.error("Erro ao buscar filmes:", err);
-        setFilms([]);
-        setError("Não foi possível carregar os indicados.");
+        if (isMounted) {
+          setFilms([]);
+          setError("Não foi possível carregar os indicados.");
+        }
       } finally {
-        if (!controller.signal.aborted) {
+        if (isMounted) {
           setLoading(false);
         }
       }
@@ -46,7 +48,10 @@ export default function useFetchFilm(year, category) {
 
     fetchFilms();
 
-    return () => controller.abort();
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
   }, [year, category]);
 
   return { films, loading, error };

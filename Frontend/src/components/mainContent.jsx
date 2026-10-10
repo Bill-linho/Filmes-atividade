@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import Cardfilm from "./card.jsx";
 import useFetchFilm from "../hooks/useFetchFilm.js";
+import { DEFAULT_YEAR, DEFAULT_CATEGORY } from "../constants/defaultRoute.js";
 import "../style/mainContent.css";
 
-const DEFAULT_YEAR = "1975";
-const DEFAULT_CATEGORY = "best-actor";
+
 
 export default function MainContent() {
   const { yearId, categoryId } = useParams();

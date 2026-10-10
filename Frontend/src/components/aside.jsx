@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { groupCategories } from "../utils/categoriesGroup.js";
+import { DEFAULT_YEAR, DEFAULT_CATEGORY } from "../constants/defaultRoute.js";
 import "../style/aside.css";
 
-const DEFAULT_YEAR = "2024";
-const DEFAULT_CATEGORY = "BEST PICTURE";
 
 export default function Aside({ categories = [] }) {
   const { yearId, categoryId } = useParams();
