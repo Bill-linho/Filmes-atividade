@@ -1,5 +1,7 @@
 # Filmes-atividade
-## Retorno(trecho) do: https://filmes-atividade.onrender.com/search?category=best%20picture&year=2020
+## Retorno(trecho) do backend: 
+https://filmes-atividade.onrender.com/search?category=best%20picture&year=2020
+```json
 {
   "id": "2020",
   "ceremony": 93,
@@ -32,10 +34,12 @@
     }
   ]
 }
-
-Ao analisar o Retorno, para best picture temos várias pessoas como nominees, fazendo com que tenhamos dados repetidos renderizando conteúdo demais.
+```
+#### Ao analisar o Retorno, para best picture temos várias pessoas como nominees, fazendo com que tenhamos dados repetidos renderizando conteúdo demais.
 --- 
-## Sugestão de correção: Criar RESULTS e dentro os nominees, agrupando por filme, obra...
+## Sugestão de correção: 
+Criar RESULTS e dentro os nominees, agrupando por filme, obra...
+```json
 {
   "year": "2020",
   "category": "BEST PICTURE", 
@@ -66,6 +70,7 @@ Ao analisar o Retorno, para best picture temos várias pessoas como nominees, fa
     }
   ]
 }
+```
 ---
 ## Variáveis de Ambiente (Configuração Local)
 
