@@ -25,23 +25,6 @@ export const categories = [
   { id: "visual effects", name: "Best Visual Effects", group: "other" },
 ];
 
-// export const years = [
-//   {
-//     id: "1975",
-//     year: 1975,
-//     ceremony: 48,
-//   },
-//   {
-//     id: "2000",
-//     year: 2000,
-//     ceremony: 73,
-//   },
-//   {
-//     id: "2025",
-//     year: 2025,
-//     ceremony: 97,
-//   },
-// ];
 export const years = [];
 
 for (let year = 1970; year <= 2026; year++) {
@@ -52,6 +35,7 @@ for (let year = 1970; year <= 2026; year++) {
 }
 
 export const oscars = [
+  // 1. Formato Antigo (Plano com array 'nominees') - Para testar compatibilidade
   {
     year: {
       id: "1975",
@@ -98,49 +82,57 @@ export const oscars = [
       },
     ],
   },
+  // 2. Novo Formato Agrupado (com 'results') - Ajustado para o ano 2020
   {
     year: {
-      id: "2000",
-      year: 2000,
-      ceremony: 73,
+      id: "2020",
+      year: 2020,
+      ceremony: 93,
     },
     category: {
       id: "best actor",
       name: "Best Actor",
       group: "main",
     },
-    winner: {
-      nominee_id: "nm0000158",
-      name: "Russell Crowe",
-      film: "Gladiator",
-      film_id: "tt0172495",
-      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500",
-      winner: true,
-    },
-    nominees: [
+    results: [
       {
-        nominee_id: "nm0000158",
-        name: "Russell Crowe",
-        film: "Gladiator",
-        film_id: "tt0172495",
-        photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500",
+        film_id: "tt10272386",
+        film: "The Father",
         winner: true,
+        nominees: [
+          {
+            nominee_id: "nm0000164",
+            name: "Anthony Hopkins",
+            photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500",
+            winner: true,
+          },
+        ],
       },
       {
-        nominee_id: "nm0000129",
-        name: "Tom Hanks",
-        film: "Cast Away",
-        film_id: "tt0162222",
-        photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500",
+        film_id: "tt7131622",
+        film: "Ma Rainey's Black Bottom",
         winner: false,
+        nominees: [
+          {
+            nominee_id: "nm1569276",
+            name: "Chadwick Boseman",
+            photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500",
+            winner: false,
+          },
+        ],
       },
       {
-        nominee_id: "nm0000197",
-        name: "Geoffrey Rush",
-        film: "Quills",
-        film_id: "tt0180073",
-        photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500",
+        film_id: "tt1234567",
+        film: "Mank",
         winner: false,
+        nominees: [
+          {
+            nominee_id: "nm0000198",
+            name: "Gary Oldman",
+            photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500",
+            winner: false,
+          },
+        ],
       },
     ],
   },
