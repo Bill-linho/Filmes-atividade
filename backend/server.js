@@ -17,7 +17,7 @@ const PORT = process.env.PORT;
 
 sequelize.sync({ alter: true, force: true }).then(async () => {
 
-  seedTables()
+  await seedTables()
 
   server.listen(PORT, () => {
     console.log(`Backend aberto em port ${PORT}`);
