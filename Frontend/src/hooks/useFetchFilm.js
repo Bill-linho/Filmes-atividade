@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getFilms } from "../../services/api.js";
+import axios from "axios";
 
 export default function useFetchFilm(year, category) {
   const [films, setFilms] = useState([]);
@@ -22,7 +23,7 @@ export default function useFetchFilm(year, category) {
       setFilms([]); // Limpa a tela imediatamente ao mudar de filtro ou alternar Mock/Back
 
       try {
-        const data = await getFilms(year, category, controller.signal);
+        const data = await axios.get(`https://filmes-atividade.onrender.com/search?category=${category}&year=${year}`)
 
         if (!Array.isArray(data)) {
           throw new Error("Resposta da API em formato inesperado.");
