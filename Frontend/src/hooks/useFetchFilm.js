@@ -23,8 +23,8 @@ export default function useFetchFilm(year, category) {
       setFilms([]); // Limpa a tela imediatamente ao mudar de filtro ou alternar Mock/Back
 
       try {
-        const data = await axios.get(`https://filmes-atividade.onrender.com/search?category=${category}&year=${year}`)
-
+        const response = await axios.get(`https://filmes-atividade.onrender.com/search?category=${category}&year=${year}`)
+        const data = response.nominees
         if (!Array.isArray(data)) {
           throw new Error("Resposta da API em formato inesperado.");
         }
