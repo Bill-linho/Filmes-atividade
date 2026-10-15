@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { groupCategories } from "../utils/categoriesGroup.js";
+import { Link, useParams } from "react-router-dom";
 
 import "../style/aside.css";
-import { Link, useParams } from "react-router-dom";
 
 let globalCategory
 
@@ -12,10 +12,7 @@ export default function Aside({
   yearSelect
 }) {
 
- useEffect(()=>{
-   const categorySelected = useParams()
-
- },[globalCategory])
+  const {categoryId} = useParams()
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -50,7 +47,6 @@ export default function Aside({
                   className={`category-btn ${
                     isSelected ? "selected" : ""
                   }`}
-                  onClick={globalCategory = category.id}
                 >
                   <Link to={`/year/${yearSelect}/category/${categories.id}`}>{category.name}</Link>
                 </button>
