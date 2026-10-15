@@ -1,10 +1,15 @@
+import { useParams } from "react-router-dom";
 import "../style/card.css";
 import "../style/Home.css";
 
 export default function Cardfilm({ nominee }) {
+
+  const { categoryId } = useParams()
+
   if (!nominee) return null;
 
   const isWinner = nominee.winner === true;
+  
 
   return (
     <article
@@ -26,7 +31,7 @@ export default function Cardfilm({ nominee }) {
 
       <div className="card-info">
         <h2>{nominee.name}</h2>
-        <p>{nominee.film}</p>
+        {!categoryId == "best picture" && <p>{nominee.film}</p>}
 
         {isWinner}
       </div>
