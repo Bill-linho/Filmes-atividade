@@ -24,7 +24,7 @@ export default function useFetchFilm(year, category) {
 
       try {
         const response = await axios.get(`https://filmes-atividade.onrender.com/search?category=${category}&year=${year}`)
-        const data = response.nominees
+        const data = response.data.nominees
         console.log(response)
         console.log(response.nominees)
         console.log(data)
