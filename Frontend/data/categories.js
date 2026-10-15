@@ -1,12 +1,13 @@
 export const categories = [
   { id: "best picture", name: "Best Picture", group: "main" },
   { id: "best director", name: "Best Director", group: "main" },
-  { id: "best actor", name: "Best Actor", group: "main" },
-  { id: "best actress", name: "Best Actress", group: "main" },
+  { id: "actor in a leading role", name: "Best Actor", group: "main" },
+  { id: "actress in a leading role", name: "Best Actress", group: "main" },
   { id: "best supporting actor", name: "Best Supporting Actor", group: "main" },
   { id: "best supporting actress", name: "Best Supporting Actress", group: "main" },
   { id: "best original screenplay", name: "Best Original Screenplay", group: "main" },
   { id: "best adapted screenplay", name: "Best Adapted Screenplay", group: "main" },
+  { id: "art direction", name: "Best Adapted Screenplay", group: "main" },
 
   { id: "animated feature film", name: "Best Animated Feature Film", group: "other" },
   { id: "international feature film", name: "Best International Feature Film", group: "other" },

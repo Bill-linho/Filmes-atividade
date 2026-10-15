@@ -25,9 +25,9 @@ export default function useFetchFilm(year, category) {
       try {
         const response = await axios.get(`https://filmes-atividade.onrender.com/search?category=${category}&year=${year}`)
         const data = response.nominees
-        if (!Array.isArray(data)) {
-          throw new Error("Resposta da API em formato inesperado.");
-        }
+        // if (!Array.isArray(data)) {
+        //   throw new Error("Resposta da API em formato inesperado.");
+        // }
 
         if (isMounted) {
           setFilms(data);
