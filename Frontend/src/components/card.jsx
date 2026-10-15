@@ -18,7 +18,7 @@ export default function Cardfilm({ nominee }) {
       <div className="card-image">
         {nominee.photo ? (
           <img
-            src={nominee.photo}
+            src={nominee.photo.Poster}
             alt={nominee.name || nominee.film}
             loading="lazy"
           />
