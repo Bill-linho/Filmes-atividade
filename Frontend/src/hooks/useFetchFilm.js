@@ -8,11 +8,11 @@ export default function useFetchFilm(year, category) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!year || !category) {
-      setFilms([]);
-      setLoading(false);
-      return;
-    }
+    // if (!year || !category) {
+    //   setFilms([]);
+    //   setLoading(false);
+    //   return;
+    // }
 
     let isMounted = true;
     const controller = new AbortController();
@@ -55,5 +55,6 @@ export default function useFetchFilm(year, category) {
     };
   }, [year, category]);
 
+  console.log("Retorno do Rook", films ,loading)
   return { films, loading, error };
 }
