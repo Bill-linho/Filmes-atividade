@@ -7,6 +7,7 @@ const extraOrigins = process.env.ALLOWED_ORIGINS
 
 const allowedOrigins = [
   process.env.FRONTEND_URL,
+  'https://filmes-atividade-theta.vercel.app/*',
   'http://localhost:5173',
   'http://localhost:3000',
   ...extraOrigins
