@@ -11,6 +11,9 @@ import searchRouter from "./routes/search.Routes.js";
 export const nodefs = fs
 
 const server = express();
+server.use(express.json());
+server.use(cors(corsOptions));
+server.use(rateLimiter);
 
 server.use(searchRouter);
 server.use((error, req, res, next) => {
@@ -19,10 +22,6 @@ server.use((error, req, res, next) => {
 });
 
 server.set('trust proxy', 1);
-
-server.use(express.json());
-server.use(cors(corsOptions));
-server.use(rateLimiter);
 
 const PORT = process.env.PORT;
 
