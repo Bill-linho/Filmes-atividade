@@ -1,9 +1,15 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
+import "dotenv/config";
 import corsOptions from './config/cors.config.js';
 import rateLimiter from './config/ratelimit.config.js';
 import { searchController } from './controllers/search.Controller.js';
+import * as fs from 'fs/promises';
+import sequelize from "./config/database.js";
+import { seedTables } from "./dumps/seedTables.js";
+import searchRouter from "./routes/search.Route.js";
+
+export const nodefs = fs
 
 if (searchController && !searchController.searchParams) {
   searchController.searchParams = searchController.search;
@@ -13,17 +19,27 @@ const { default: searchRouter } = await import('./routes/search.Routes.js');
 
 dotenv.config();
 
-const app = express();
+const server = express();
 
-app.set('trust proxy', 1);
+server.use(searchRouter);
+server.use((error, req, res, next) => {
+  console.error(error);
+  res.status(500).json({ error: "Erro ao buscar as indicações." });
+});
 
-app.use(express.json());
-app.use(cors(corsOptions));
-app.use(rateLimiter);
+server.set('trust proxy', 1);
 
-app.use('/search', searchRouter);
+server.use(express.json());
+server.use(cors(corsOptions));
+server.use(rateLimiter);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+const PORT = process.env.PORT;
+
+sequelize.sync({ alter: true, force: true }).then(async () => {
+
+  seedTables()
+
+  server.listen(PORT, () => {
+    console.log(`Backend aberto em port ${PORT}`);
+  });
 });
