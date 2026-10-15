@@ -3,21 +3,12 @@ import cors from 'cors';
 import "dotenv/config";
 import corsOptions from './config/cors.config.js';
 import rateLimiter from './config/ratelimit.config.js';
-import { searchController } from './controllers/search.Controller.js';
 import * as fs from 'fs/promises';
 import sequelize from "./config/database.js";
 import { seedTables } from "./dumps/seedTables.js";
-import searchRouter from "./routes/search.Route.js";
+import searchRouter from "./routes/search.Routes.js";
 
 export const nodefs = fs
-
-if (searchController && !searchController.searchParams) {
-  searchController.searchParams = searchController.search;
-}
-
-const { default: searchRouter } = await import('./routes/search.Routes.js');
-
-dotenv.config();
 
 const server = express();
 

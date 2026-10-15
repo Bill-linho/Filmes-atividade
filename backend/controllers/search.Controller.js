@@ -63,7 +63,7 @@ export const searchNominations = async (req, res, next) => {
       id: String(firstNomination.year),
       ceremony: firstNomination.ceremony,
       year: firstNomination.year,
-      category: firstNomination.category,
+      category: firstNomination.category.toLowerCase(),
       nominees,
     });
   } catch (error) {
