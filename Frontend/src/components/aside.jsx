@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { groupCategories } from "../utils/categoriesGroup.js";
 import { Link, useParams } from "react-router-dom";
 
-import "../style/aside.css";
-
 let globalCategory
 
 
@@ -22,7 +20,7 @@ export default function Aside({
   } = groupCategories(categories);
 
   return (
-    <aside className="p-3 w-55 min-w-55 min-h-[calc(100vh - 70px)] p-[25px 18px] bg-white border-r-2 border-solid border-[#222]">
+    <aside className="w-55 min-w-55 min-h-[calc(100vh - 70px)] px-4.5 py-6.25 bg-white border-r-2 border-solid border-[#222] max-[700px]:w-auto max-[700px]:min-w-0 max-[700px]:min-h-auto max-[700px]:border-r-0 max-[700px]:border-b-2">
       <div className="mb-6.25">
         <h2 className="m-3.75 font-bold text-2xl tracking-wide">
           CATEGORIES
@@ -44,8 +42,8 @@ export default function Aside({
                 <button
                   key={category.id}
                   type="button"
-                  className={`category-btn ${
-                    isSelected ? "selected" : ""
+                  className={`w-full px-1.25 py-2.75 text-left text-[14px] text-[#222] bg-transparent border-0 border-b border-solid border-b-[#222] cursor-pointer transition-[background,color,padding] duration-200 ease-in-out hover:pl-2.5 hover:bg-[#f2f2f2] ${
+                    isSelected ? "pl-2.5 text-white bg-[#222] font-bold" : ""
                   }`}
                 >
                   <Link to={`/year/${yearSelect}/category/${categories.id}`}>{category.name}</Link>
@@ -55,16 +53,12 @@ export default function Aside({
           </div>
         </section>
 
-        <section className="category-group">
+        <section>
           <h3>Other</h3>
 
           <button
             type="button"
-            className={`category-select-trigger ${""
-              // selectedOtherCategory
-                // ? "selected"
-                // : ""
-            }`}
+            className="flex items-center justify-between w-full px-3 py-2.25 text-[13px] text-[#555] bg-[#f9f9f9] border border-solid border-[#ccc] rounded-sm cursor-pointer transition-[background,color,border-color] duration-200 ease-in-out hover:text-[#222] hover:bg-[#f2f2f2] hover:border-[#222]"
             onClick={() =>
               setIsOpen((current) => !current)
             }
@@ -78,8 +72,8 @@ export default function Aside({
             </span>
 
             <span
-              className={`arrow ${
-                isOpen ? "open" : ""
+              className={`text-[10px] transition-transform duration-200 ease-in-out ${
+                isOpen ? "rotate-180" : ""
               }`}
             >
               ▼
@@ -87,7 +81,7 @@ export default function Aside({
           </button>
 
           {isOpen && (
-            <div className="category-dropdown-list">
+            <div className="max-h-50 mt-1.5 overflow-y-auto bg-white border border-solid border-[#222] rounded-sm">
               {otherCategories.map((category) => {
                 const isSelected =
                   selectedCategory === category.id;
@@ -96,14 +90,14 @@ export default function Aside({
                   <button
                     key={category.id}
                     type="button"
-                    className={`category-dropdown-item ${
-                      isSelected ? "selected" : ""
+                    className={`flex items-center justify-between w-full px-3 py-2.25 text-left text-[13px] text-[#333] bg-transparent border-0 border-b border-solid border-b-[#eee] cursor-pointer last:border-b-0 hover:bg-[#f4f4f4] ${
+                      isSelected ? "text-white bg-[#222] font-bold" : ""
                     }`}
                   >
                     <span>{category.name}</span>
 
                     {isSelected && (
-                      <span className="check-icon">
+                      <span className="text-[11px]">
                         ✓
                       </span>
                     )}
@@ -117,6 +111,3 @@ export default function Aside({
     </aside>
   );
 }
-
-
-
