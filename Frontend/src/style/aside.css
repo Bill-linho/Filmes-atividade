@@ -1,0 +1,181 @@
+
+.aside {
+  width: 220px;
+  min-width: 220px;
+  min-height: calc(100vh - 70px);
+  padding: 25px 18px;
+  background: #fff;
+  border-right: 2px solid #222;
+  box-sizing: border-box;
+}
+
+.aside-header {
+  margin-bottom: 25px;
+}
+
+.aside-title {
+  margin: 0 0 15px;
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.aside-line {
+  width: 100%;
+  height: 2px;
+  background: #222;
+}
+
+.aside-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.category-group h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.category-items {
+  display: flex;
+  text-transform: uppercase;
+  flex-direction: column;
+}
+
+.category-btn {
+  width: 100%;
+  padding: 11px 5px;
+  text-align: left;
+  text-decoration: none; /*aqui remove o UNDERLINE*/
+  font-size: 14px;
+  color: #222;
+  background: transparent;
+  text-transform: uppercase; /* ou uppercase, se preferir tudo maiúsculo */
+  border: none;
+  border-bottom: 1px solid #222;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    padding 0.2s ease;
+}
+
+.category-btn:hover {
+  padding-left: 10px;
+  background: #f2f2f2;
+}
+
+.category-btn.selected {
+  padding-left: 10px;
+  color: #fff;
+  text-transform: uppercase;
+  background: #222;
+  font-weight: bold;
+}
+
+/* CONTAINER DO GRUPO OTHER */
+.category-group {
+  position: relative;
+}
+
+.category-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 13px;
+  color: #555;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  box-sizing: border-box;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+/* Protege o texto do botão para nunca quebrar o layout */
+.category-select-trigger span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.category-select-trigger:hover {
+  color: #222;
+  background: #f2f2f2;
+  border-color: #222;
+}
+
+.category-select-trigger.selected {
+  color: #000;
+  background: #eee;
+  border-color: #222;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.arrow {
+  font-size: 10px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.arrow.open {
+  transform: rotate(180deg);
+}
+
+/* CAIXA DO DROPDOWN FLUTUANTE */
+.category-dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  max-height: 250px;
+  margin-top: 4px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #222;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* CORREÇÃO DOS ITENS DENTRO DO DROPDOWN */
+.category-dropdown-list .category-btn {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 12px;
+  text-align: left;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #222;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  white-space: normal; /* Permite que o texto quebre de forma limpa em várias linhas se necessário */
+  word-break: break-word;
+}
+
+.category-dropdown-list .category-btn:last-child {
+  border-bottom: none;
+}
+
+.category-dropdown-list .category-btn:hover {
+  padding-left: 16px; /* Efeito suave de deslocamento */
+  background: #f2f2f2;
+}
+
+.category-dropdown-list .category-btn.selected {
+  padding-left: 16px;
+  color: #fff;
+  background: #222;
+  font-weight: bold;
+}
