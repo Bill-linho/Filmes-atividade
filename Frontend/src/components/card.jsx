@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import "../style/card.css";
 import "../style/Home.css";
+import { useEffect, useState } from "react";
 
 export default function Cardfilm({ nominee }) {
 
@@ -10,6 +11,21 @@ export default function Cardfilm({ nominee }) {
 
   const isWinner = nominee.winner === true;
   
+  const [poster, setPoster] = useState("")
+
+  useEffect(()=>{
+    async function Imagem() {
+      try {
+        const response = await fetch(nominee.photo)
+        const data = await response.json()
+
+        setPoster(data.Poster)
+      } catch (error) {
+        console.error("Erro na imagem", error)
+      }
+    }
+    Imagem()
+  },[nominee.photo])
 
   return (
     <article
@@ -18,7 +34,7 @@ export default function Cardfilm({ nominee }) {
       <div className="card-image">
         {nominee.photo ? (
           <img
-            src={nominee.photo.Poster}
+            src={poster}
             alt={nominee.name || nominee.film}
             loading="lazy"
           />
