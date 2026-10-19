@@ -22,20 +22,20 @@ export default function Aside({
   } = groupCategories(categories);
 
   return (
-    <aside className="aside">
-      <div className="aside-header">
-        <h2 className="aside-title">
+    <aside className="p-3 w-55 min-w-55 min-h-[calc(100vh - 70px)] p-[25px 18px] bg-white border-r-2 border-solid border-[#222]">
+      <div className="mb-6.25">
+        <h2 className="m-3.75 font-bold text-2xl tracking-wide">
           CATEGORIES
         </h2>
 
-        <div className="aside-line" />
+        <div className="w-full h-0.5 bg-[#333]"/>
       </div>
 
-      <nav className="aside-nav">
-        <section className="category-group">
+      <nav className="flex flex-col gap-7.5">
+        <section className="m-[0 0 8px] text-[13px] uppercase tracking-wide">
           <h3>Main</h3>
 
-          <div className="category-items">
+          <div className="flex flex-col">
             {mainCategories.map((category) => {
               const isSelected =
                 globalCategory === category.id;

@@ -6,7 +6,7 @@ export default function MainContent({ movie }) {
 const {films, loading, erro} = useFetcherFilm( movie.yearId , movie.categoryId)
 
 if(loading){
-  return <p>carregando filmes...</p>
+  return <p className="p-5">Carregando filmes...</p>
 }
 
 if(erro){
