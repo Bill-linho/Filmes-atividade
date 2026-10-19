@@ -18,6 +18,30 @@ const nominationsPromise = readFile(nominationsFile, "utf8").then((data) => {
 const getQueryValue = (value) =>
   typeof value === "string" ? value.trim() : null;
 
+const getFilmPoster = async (filmId) => {
+  const apiKey = process.env.OMDB_KEY;
+
+  if (!apiKey) {
+    throw new Error("OMDB_KEY is not configured.");
+  }
+
+  const url = new URL("https://www.omdbapi.com/");
+  url.searchParams.set("i", filmId);
+  url.searchParams.set("apikey", apiKey);
+
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`OMDb request failed with status ${response.status}.`);
+  }
+
+  const film = await response.json();
+  if (film.Response === "False") {
+    throw new Error(`OMDb request failed: ${film.Error}`);
+  }
+
+  return film.Poster && film.Poster !== "N/A" ? film.Poster : null;
+};
+
 export const searchNominations = async (req, res, next) => {
   const category = getQueryValue(req.query.category);
   const year = getQueryValue(req.query.year);
@@ -44,20 +68,35 @@ export const searchNominations = async (req, res, next) => {
     }
 
     const firstNomination = matchingNominations[0];
-    const nominees = matchingNominations.flatMap((nomination) => {
+    const nomineeEntries = matchingNominations.flatMap((nomination) => {
       const films = nomination.filmes.length > 0 ? nomination.filmes : [null];
 
       return nomination.indicados.flatMap((nominee) =>
         films.map((film) => ({
           nominee_id: nominee.id,
           name: nominee.nome,
-          photo: `http://www.omdbapi.com/?i=${film.id}&apikey=${process.env.OMDB_KEY}`,
-          winner: Boolean(nomination.winner),
-          film: film?.nome ?? null,
           film_id: film?.id ?? null,
+          film: film?.nome ?? null,
+          winner: Boolean(nomination.winner),
         })),
       );
     });
+
+    const posterPromises = new Map();
+    const getPoster = (filmId) => {
+      if (!posterPromises.has(filmId)) {
+        posterPromises.set(filmId, getFilmPoster(filmId));
+      }
+
+      return posterPromises.get(filmId);
+    };
+
+    const nominees = await Promise.all(
+      nomineeEntries.map(async (nominee) => ({
+        ...nominee,
+        poster: nominee.film_id ? await getPoster(nominee.film_id) : null,
+      })),
+    );
 
     return res.json({
       id: String(firstNomination.year),
