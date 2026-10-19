@@ -2,7 +2,7 @@ import "../style/card.css";
 
 export default function Cardfilm({ nominee }) {
   if (!nominee) {
-    console.log("foto:", nominee.photo);
+    console.log("foto:", nominee.poster);
     
     return null;
   }
@@ -10,9 +10,9 @@ export default function Cardfilm({ nominee }) {
   return (
     <div className="card-film">
       <div className="card-image">
-        {nominee.photo ? (
+        {nominee.poster ? (
           <img
-            src={nominee.photo}
+            src={nominee.poster}
             alt={nominee.name}
           />
         ) : (
